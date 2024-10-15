@@ -1,10 +1,9 @@
 import Button from '@/components/Button';
-import MainViewModel from '@/viewModels/mainViewModel';
+import mainViewModel from '@/viewModels/mainViewModel';
 import { observer } from 'mobx-react';
 import { Text, View } from 'react-native';
+import { IoCalculator } from "rocketicons/io5";
 
-
-const mainViewModel = new MainViewModel();
 
 function HomeScreen() {
   return (
@@ -17,7 +16,7 @@ function HomeScreen() {
             <Button title="7" onPress={() => mainViewModel.handleButtonPress("7")} />
             <Button title="4" onPress={() => mainViewModel.handleButtonPress("4")} />
             <Button title="1" onPress={() => mainViewModel.handleButtonPress("1")} />
-            <Button title=" " />
+            <Button title={<IoCalculator />} />
           </View>
           <View>
             <Button title=" " />
@@ -34,11 +33,11 @@ function HomeScreen() {
             <Button title="," onPress={() => mainViewModel.handleButtonPress(",")} />
           </View>
           <View>
-            <Button title="/" onPress={() => mainViewModel.handleButtonPress("/")} />
-            <Button title="X" onPress={() => mainViewModel.handleButtonPress("X")} />
-            <Button title="-" onPress={() => mainViewModel.handleButtonPress("-")} />
+            <Button title="÷" onPress={() => mainViewModel.handleButtonPress("÷")} />
+            <Button title="×" onPress={() => mainViewModel.handleButtonPress("×")} />
+            <Button title="−" onPress={() => mainViewModel.handleButtonPress("−")} />
             <Button title="+" onPress={() => mainViewModel.handleButtonPress("+")} />
-            <Button title="=" onPress={() => mainViewModel.equel} />
+            <Button title="=" onPress={() => mainViewModel.equel()} />
           </View>
         </View>
       </View>
