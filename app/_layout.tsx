@@ -34,12 +34,12 @@ export default function RootLayout() {
       console.log(appState.current, nextAppState);
       if (nextAppState === 'active') {
         if (appState.current.match(/inactive|background/)) {
-          Toast.show('Welcome back', {
+          Toast.show('Velkommen tilbage', {
             duration: Toast.durations.SHORT,
             position: Toast.positions.TOP,
           });
         } else if (appState.current === 'unknown') {
-          Toast.show('App is active', {
+          Toast.show('Velkommen', {
             duration: Toast.durations.SHORT,
             position: Toast.positions.TOP,
           });

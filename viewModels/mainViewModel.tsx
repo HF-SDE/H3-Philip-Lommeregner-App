@@ -1,5 +1,5 @@
 import { ButtonTitle, Calculator } from "@/models/sampleModel";
-import { evaluate } from "mathjs";
+import { evaluate, re } from "mathjs";
 import { action, computed, makeAutoObservable, observable } from "mobx";
 import Toast from "react-native-root-toast";
 
@@ -26,16 +26,34 @@ class MainViewModel {
     }
 
     @action public handleButtonPress = (input: ButtonTitle): void => {
-        if (this.input === "0" && input !== "," && input !== "÷" && input !== "×" && input !== "−" && input !== "+") {
-            this.setInput(input);
-
-        } else {
-            this.setInput(this.input + input);
+        if (input.match(/[0-9]/g)) {
+            if (this.input === "0") {
+                this.setInput(input);
+            } else {
+                this.setInput(this.input + input);
+            }
+        }
+        if (this.input !== "0" && !input.match(/[0-9]/g)) {
+            if (this.input.at(-1) === "," || this.input.at(-1) === "+" || this.input.at(-1) === "÷" || this.input.at(-1) === "−" || this.input.at(-1) === "×") {
+                this.setInput(this.input.slice(0, -1) + input);
+            } else {            
+                this.setInput(this.input + input);
+            }
         }
     }
 
     @action public erase = (): void => {
         this.calculators.find(env => (env.id === this.selectedID))!.input = "0";
+    }
+
+    @action public undo = (): void => {
+        const currentCalculator = this.calculators.find(env => (env.id === this.selectedID));
+        if (currentCalculator) {
+            currentCalculator.input = currentCalculator.input.slice(0, -1);
+            if (currentCalculator.input === "") {
+                currentCalculator.input = "0";
+            }
+        }
     }
 
     @action public equel = (): void => {

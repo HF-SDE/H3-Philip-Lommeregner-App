@@ -19,7 +19,7 @@ function HomeScreen() {
             <Button title={<IoCalculator />} />
           </View>
           <View>
-            <Button title=" " />
+            <Button title="U" onPress={mainViewModel.undo} />
             <Button title="8" onPress={() => mainViewModel.handleButtonPress("8")} />
             <Button title="5" onPress={() => mainViewModel.handleButtonPress("5")} />
             <Button title="2" onPress={() => mainViewModel.handleButtonPress("2")} />
