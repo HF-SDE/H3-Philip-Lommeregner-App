@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from 'react';
 import 'react-native-reanimated';
 import { RootSiblingParent } from 'react-native-root-siblings';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { AppState } from 'react-native';
 import Toast from 'react-native-root-toast';
+import { useColorScheme } from 'nativewind';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -60,7 +60,7 @@ export default function RootLayout() {
 
   return (
     <RootSiblingParent>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={colorScheme.colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />

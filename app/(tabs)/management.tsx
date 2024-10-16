@@ -1,14 +1,29 @@
+import Button from "@/components/Button";
 import Dropdown from "@/components/Dropdown";
+import { Calculator } from "@/models/sampleModel";
+import mainViewModel from "@/viewModels/mainViewModel";
 import { observer } from "mobx-react";
-import { SafeAreaView, TextInput } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 
 export function Management() {
     return (
         <SafeAreaView className="h-full p-3 pt-10 flex flex-col">
-            <Dropdown label="Dropdown" />
-            {/* <TextInput className="border-2 border-gray-400 rounded-lg p-2" placeholder="Search" />
-            <TextInput className="border-2 border-gray-400 rounded-lg p-2" placeholder="Search" /> */}
-
+            <Dropdown<Calculator>
+                label="Dropdown"
+                items={mainViewModel.calculators}
+                currentSelected={mainViewModel.selectedFrom?.name}
+                onPressItem={mainViewModel.setSelectedFrom}
+                className="z-20"
+            />
+            <Text className="text-center text-black dark:text-white p-1">\/</Text>
+            <Dropdown<Calculator>
+                label="Dropdown"
+                items={mainViewModel.calculators}
+                currentSelected={mainViewModel.selectedTo?.name}
+                onPressItem={mainViewModel.setSelectedTo}
+                className="z-10"
+            />
+            <Button title="Move" onPress={mainViewModel.move}/>
         </SafeAreaView>
     )
 }

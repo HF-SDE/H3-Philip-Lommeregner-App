@@ -13,6 +13,10 @@ class MainViewModel {
 
     @observable public selectedUUID: string = this._firstUUID;
 
+    @observable public selectedFrom: Calculator | undefined = undefined;
+
+    @observable public selectedTo: Calculator | undefined = undefined;
+
     @observable public calculators: Calculator[] = [{ uuid: this._firstUUID, input: "0" }]
 
     @action public addInstans = (): void => {
@@ -24,6 +28,30 @@ class MainViewModel {
         if (selectedElement) {
             this.calculators.splice(this.calculators.indexOf(selectedElement), 1);
         }
+    }
+
+    @action public setSelectedTo = (item: Calculator, index: number): void => {
+        this.selectedTo = { ...item, name: `Calculator ${index}` };;
+    }
+
+    @action public setSelectedFrom = (item: Calculator, index: number): void => {
+        this.selectedFrom = { ...item, name: `Calculator ${index}` };
+    }
+
+    @action public move = (): void => {
+        const toInstantsIndex = this.calculators.findIndex(element => element.uuid === this.selectedTo?.uuid);
+        const toInstants = this.calculators.at(toInstantsIndex);
+
+        const fromInstantsIndex = this.calculators.findIndex(element => element.uuid === this.selectedFrom?.uuid);
+        const fromInstants = this.calculators.at(fromInstantsIndex);
+
+
+        if (fromInstants && toInstants) {
+            this.calculators = this.calculators.splice(toInstantsIndex, 0, { uuid: toInstants.uuid, input: fromInstants.input });
+            this.selectedFrom = undefined;
+            this.selectedTo = undefined;
+        }
+
     }
 
     @action public setSelected = (uuid: string): void => {
@@ -65,7 +93,7 @@ class MainViewModel {
         }
     }
 
-    @action public equel = (): void => {
+    @action public equal = (): void => {
         let tmpInput: string = this.input.replaceAll("÷", "/").replaceAll("×", "*").replaceAll("−", "-").replaceAll(",", ".");
 
         while (tmpInput.endsWith("/") || tmpInput.endsWith("*") || tmpInput.endsWith("-") || tmpInput.endsWith("+") || tmpInput.endsWith(".")) {
@@ -88,7 +116,7 @@ class MainViewModel {
 
     @computed
     public get input(): string {
-        return this.calculators.find(env => (env.uuid === this.selectedUUID))!.input;
+        return this.calculators.find(env => (env.uuid === this.selectedUUID))?.input ?? "";
     }
 
 }
