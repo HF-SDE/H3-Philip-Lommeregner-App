@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "H3-Lommeregner-App",
-    "slug": "H3-Lommeregner-App",
+    "name": "H3-Philip-Lommeregner-App",
+    "slug": "H3-Philip-Lommeregner-App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,8 +19,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.example.H3-Lommeregner-App"
+      }
     },
     "web": {
       "bundler": "metro",

@@ -31,7 +31,6 @@ export default function RootLayout() {
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       setAppStateVisible(nextAppState);
-      console.log(appState.current, nextAppState);
       if (nextAppState === 'active') {
         if (appState.current.match(/inactive|background/)) {
           Toast.show('Velkommen tilbage', {

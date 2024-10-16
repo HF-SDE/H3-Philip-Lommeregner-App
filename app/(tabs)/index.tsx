@@ -1,8 +1,8 @@
 import Button from '@/components/Button';
 import mainViewModel from '@/viewModels/mainViewModel';
+import { Ionicons } from '@expo/vector-icons';
 import { observer } from 'mobx-react';
 import { Text, View } from 'react-native';
-import { IoCalculator } from "rocketicons/io5";
 
 
 function HomeScreen() {
@@ -16,7 +16,7 @@ function HomeScreen() {
             <Button title="7" onPress={() => mainViewModel.handleButtonPress("7")} />
             <Button title="4" onPress={() => mainViewModel.handleButtonPress("4")} />
             <Button title="1" onPress={() => mainViewModel.handleButtonPress("1")} />
-            <Button title={<IoCalculator />} />
+            <Button title={<Ionicons name="checkmark-circle" size={32} color="green" />} />
           </View>
           <View>
             <Button title="U" onPress={mainViewModel.undo} />
