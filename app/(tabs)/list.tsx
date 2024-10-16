@@ -4,13 +4,22 @@ import mainViewModel from "@/viewModels/mainViewModel";
 import { observer } from "mobx-react";
 import { FlatList, View } from "react-native";
 
-function ListOfCalculators() {
+export function ListOfCalculators() {
     return (
-        <View className="h-full p-3">
+        <View className="h-full p-3 space-y-5">
             <FlatList
-                data={[... mainViewModel.calculators]}
-                extraData={mainViewModel.selectedID}
-                renderItem={({ item }) => <Card activeID={mainViewModel.selectedID} id={item.id} input={item.input} onPress={() => mainViewModel.setSelected(item.id)} />}/>
+                data={[...mainViewModel.calculators]}
+                extraData={mainViewModel.selectedUUID}
+                renderItem={({ item, index }) =>
+                    <Card
+                        id={index}
+                        activeUUID={mainViewModel.selectedUUID}
+                        uuid={item.uuid}
+                        input={item.input}
+                        onPress={() => mainViewModel.setSelected(item.uuid)}
+                        delete={() => mainViewModel.removeInstans(item.uuid)}
+                    />}
+                keyExtractor={item => item.uuid} />
             <View className="h-fit items-end justify-end">
                 <Button title="Add" onPress={mainViewModel.addInstans} />
             </View>

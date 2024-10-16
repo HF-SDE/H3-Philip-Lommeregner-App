@@ -1,4 +1,5 @@
 import { ButtonTitle, Calculator } from "@/models/sampleModel";
+import { generate_uuidv4 } from "@/utils/uuid";
 import { evaluate, re } from "mathjs";
 import { action, computed, makeAutoObservable, observable } from "mobx";
 import Toast from "react-native-root-toast";
@@ -8,21 +9,29 @@ class MainViewModel {
         makeAutoObservable(this);
     }
 
-    @observable public selectedID: number = 1;
+    private _firstUUID: string = generate_uuidv4();
 
-    @observable public calculators: Calculator[] = [{ id: 1, input: "0" }]
+    @observable public selectedUUID: string = this._firstUUID;
+
+    @observable public calculators: Calculator[] = [{ uuid: this._firstUUID, input: "0" }]
 
     @action public addInstans = (): void => {
-        this.calculators.push({ id: this.calculators.length + 1, input: "0" });
-
+        this.calculators.push({ uuid: generate_uuidv4(), input: "0" });
     }
 
-    @action public setSelected = (id: number): void => {
-        this.selectedID = id;
+    @action public removeInstans = (uuid: string): void => {
+        const selectedElement = this.calculators.find((element) => element.uuid === uuid)
+        if (selectedElement) {
+            this.calculators.splice(this.calculators.indexOf(selectedElement), 1);
+        }
+    }
+
+    @action public setSelected = (uuid: string): void => {
+        this.selectedUUID = uuid;
     }
 
     @action public setInput = (val: string): void => {
-        this.calculators.find(env => (env.id === this.selectedID))!.input = val.toString();
+        this.calculators.find(env => (env.uuid === this.selectedUUID))!.input = val.toString();
     }
 
     @action public handleButtonPress = (input: ButtonTitle): void => {
@@ -36,18 +45,18 @@ class MainViewModel {
         if (this.input !== "0" && !input.match(/[0-9]/g)) {
             if (this.input.at(-1) === "," || this.input.at(-1) === "+" || this.input.at(-1) === "÷" || this.input.at(-1) === "−" || this.input.at(-1) === "×") {
                 this.setInput(this.input.slice(0, -1) + input);
-            } else {            
+            } else {
                 this.setInput(this.input + input);
             }
         }
     }
 
     @action public erase = (): void => {
-        this.calculators.find(env => (env.id === this.selectedID))!.input = "0";
+        this.calculators.find(env => (env.uuid === this.selectedUUID))!.input = "0";
     }
 
     @action public undo = (): void => {
-        const currentCalculator = this.calculators.find(env => (env.id === this.selectedID));
+        const currentCalculator = this.calculators.find(env => (env.uuid === this.selectedUUID));
         if (currentCalculator) {
             currentCalculator.input = currentCalculator.input.slice(0, -1);
             if (currentCalculator.input === "") {
@@ -79,7 +88,7 @@ class MainViewModel {
 
     @computed
     public get input(): string {
-        return this.calculators.find(env => (env.id === this.selectedID))!.input;
+        return this.calculators.find(env => (env.uuid === this.selectedUUID))!.input;
     }
 
 }

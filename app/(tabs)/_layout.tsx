@@ -1,28 +1,35 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import * as React from 'react';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { HomeScreen } from '.';
+import { observer } from 'mobx-react';
+import { ListOfCalculators } from './list';
+import { Management } from './management';
+
+
+const Stack = createNativeStackNavigator();
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={observer(HomeScreen)}
+        options={({ route }) => ({ title: route.name })}
       />
-    </Tabs>
+      <Stack.Screen
+        name="List"
+        component={observer(ListOfCalculators)}
+        options={({ route }) => ({ title: route.name })}
+      />
+      <Stack.Screen
+        name="Management"
+        component={observer(Management)}
+        options={({ route }) => ({ title: route.name })}
+      />
+    </Stack.Navigator>
   );
 }
