@@ -87,6 +87,7 @@ class CalculatorViewModel {
       const selectedElement = this.calculators.find((element) => element.uuid === uuid);
       if (selectedElement) {
         this.calculators.splice(this.calculators.indexOf(selectedElement), 1);
+        this.selectedUUID = this.calculators[0].uuid;
       }
     }
   };
