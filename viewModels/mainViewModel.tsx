@@ -47,7 +47,9 @@ class MainViewModel {
 
 
         if (fromInstants && toInstants) {
-            this.calculators = this.calculators.splice(toInstantsIndex, 0, { uuid: toInstants.uuid, input: fromInstants.input });
+            // this.calculators = this.calculators.splice(toInstantsIndex, 0, { uuid: toInstants.uuid, input: fromInstants.input });
+            // this.calculators = [...this.calculators.slice(0, fromInstantsIndex), { uuid: toInstants.uuid, input: fromInstants.input }, ...this.calculators.slice(toInstantsIndex + 1)];
+            this.calculators[toInstantsIndex] = { uuid: toInstants.uuid, input: fromInstants.input };
             this.selectedFrom = undefined;
             this.selectedTo = undefined;
         }

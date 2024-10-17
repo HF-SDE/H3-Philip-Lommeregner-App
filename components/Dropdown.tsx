@@ -1,18 +1,46 @@
 import { FontAwesome6 } from '@expo/vector-icons';
-import { useColorScheme } from 'nativewind';
+import { styled, StyledComponent, useColorScheme } from 'nativewind';
 import React, { useState } from 'react';
-import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, FlexStyle, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-interface Props<T extends {uuid: string}> {
+interface Props<T extends { uuid: string }> {
     label: string;
     items: T[];
+    style?: ViewStyle | FlexStyle;
     currentSelected?: string;
     placeHolder?: string;
-    className?: string;
     onPressItem: (item: T, index: number) => void;
 }
 
-export default function Dropdown<T extends {uuid: string}>(props: Props<T>) {
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        padding: 20,
+        margin: 10,
+    },
+    top: {
+        flex: 0.3,
+        backgroundColor: 'grey',
+        borderWidth: 5,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    middle: {
+        flex: 0.3,
+        backgroundColor: 'beige',
+        borderWidth: 5,
+    },
+    bottom: {
+        flex: 0.3,
+        backgroundColor: 'pink',
+        borderWidth: 5,
+        borderBottomLeftRadius: 20,
+    }
+});
+
+export default function Dropdown<T extends { uuid: string }>(props: Props<T>) {
     const { colorScheme } = useColorScheme()
     const [visible, setVisible] = useState(false);
     const placeHolder = props.placeHolder ?? 'Select item';
@@ -21,16 +49,18 @@ export default function Dropdown<T extends {uuid: string}>(props: Props<T>) {
         setVisible(!visible);
     };
 
+    const StyleTouchableOpacity = styled(TouchableOpacity);
+
     const renderDropdown = () => {
         if (visible) {
             return (
-                <SafeAreaView className='absolute top-8 border w-full py-4 pl-4 rounded-b bg-slate-300'>
+                <View className='absolute top-8 border w-full py-4 pl-4 rounded-b bg-slate-300'>
                     <FlatList
                         data={props.items}
                         renderItem={({ item, index }) => renderDropdownItem(item, index)}
                         keyExtractor={item => item.uuid}
                     />
-                </SafeAreaView>
+                </View>
             );
         }
     };
@@ -49,8 +79,9 @@ export default function Dropdown<T extends {uuid: string}>(props: Props<T>) {
 
 
     return (
-        <TouchableOpacity
-            className={`flex flex-row items-center w-full justify-between border dark:border-slate-200 z-10 ${props.className} ${visible ? "rounded-t" : "rounded"}`}
+        <StyleTouchableOpacity
+            className={`flex flex-row items-center w-full justify-between border dark:border-slate-200 ${visible ? "rounded-t" : "rounded"}`}
+            style={props.style}
             onPress={toggleDropdown}
         >
             {renderDropdown()}
@@ -58,6 +89,6 @@ export default function Dropdown<T extends {uuid: string}>(props: Props<T>) {
             <View className="pr-2">
                 <FontAwesome6 name="chevron-down" color={colorScheme === 'dark' ? "white" : "black"} />
             </View>
-        </TouchableOpacity>
+        </StyleTouchableOpacity>
     );
 }

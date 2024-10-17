@@ -13,7 +13,7 @@ export function Management() {
                 items={mainViewModel.calculators}
                 currentSelected={mainViewModel.selectedFrom?.name}
                 onPressItem={mainViewModel.setSelectedFrom}
-                className="z-20"
+                style={{ zIndex: 20 }}
             />
             <Text className="text-center text-black dark:text-white p-1">\/</Text>
             <Dropdown<Calculator>
@@ -21,7 +21,7 @@ export function Management() {
                 items={mainViewModel.calculators}
                 currentSelected={mainViewModel.selectedTo?.name}
                 onPressItem={mainViewModel.setSelectedTo}
-                className="z-10"
+                style={{ zIndex: 10 }}
             />
             <Button title="Move" onPress={mainViewModel.move}/>
         </SafeAreaView>
