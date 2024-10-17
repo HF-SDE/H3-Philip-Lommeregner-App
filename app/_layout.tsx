@@ -4,11 +4,11 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useRef, useState } from 'react';
 import 'react-native-reanimated';
-import { RootSiblingParent } from 'react-native-root-siblings';
 
 import { AppState } from 'react-native';
-import Toast from 'react-native-root-toast';
 import { useColorScheme } from 'nativewind';
+import { toast, Toaster } from 'sonner-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,15 +33,7 @@ export default function RootLayout() {
       setAppStateVisible(nextAppState);
       if (nextAppState === 'active') {
         if (appState.current.match(/inactive|background/)) {
-          Toast.show('Velkommen tilbage', {
-            duration: Toast.durations.SHORT,
-            position: Toast.positions.TOP,
-          });
-        } else if (appState.current === 'unknown') {
-          Toast.show('Velkommen', {
-            duration: Toast.durations.SHORT,
-            position: Toast.positions.TOP,
-          });
+          toast('Velkommen tilbage');
         }
       }
 
@@ -59,13 +51,23 @@ export default function RootLayout() {
   }
 
   return (
-    <RootSiblingParent>
+    <GestureHandlerRootView>
       <ThemeProvider value={colorScheme.colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
       </ThemeProvider>
-    </RootSiblingParent>
+      <Toaster />
+      <OnToaster />
+    </GestureHandlerRootView>
   );
+}
+
+function OnToaster() {
+  useEffect(() => {
+    toast('Velkommen');
+  }, []);
+
+  return null;
 }

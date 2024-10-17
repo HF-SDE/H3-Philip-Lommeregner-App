@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { RectButton, Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
 import { styled } from 'nativewind';
 import calculatorViewModel from '@/viewModels/calculatorViewModel';
+import { LegacyRef } from 'react';
 
 interface Props {
   id: number;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 export default function Card(props: Calculator & Props) {
+  let element: LegacyRef<Swipeable> | undefined;
+
   function renderRightComponet() {
     const StyledRectButton = styled(RectButton);
 
@@ -46,20 +49,20 @@ export default function Card(props: Calculator & Props) {
     );
   }
 
-  function deleteElement(element: Swipeable) {
+  function deleteElement() {
     if (calculatorViewModel.calculators.length > 1) {
       props.delete();
-    } else if (element) {
-      element.reset();
+    } else if (event) {
+      (element as unknown as Swipeable).reset();
     }
   }
 
-  function onSwipeableOpen(direction: string, element: Swipeable) {
+  function onSwipeableOpen(direction: string) {
     if (direction === 'right') {
-      deleteElement(element);
+      deleteElement();
     }
     if (direction === 'left') {
-      element.reset();
+      (element as unknown as Swipeable).reset();
       props.move();
     }
   }
@@ -68,7 +71,8 @@ export default function Card(props: Calculator & Props) {
     <Swipeable
       renderRightActions={renderRightComponet}
       onSwipeableOpen={onSwipeableOpen}
-      renderLeftActions={renderLeftComponet}>
+      renderLeftActions={renderLeftComponet}
+      ref={element}>
       <Pressable
         className={`m-2 flex h-fit w-fit flex-row justify-between rounded-lg p-2 shadow-md ${props.activeUUID === props.uuid ? 'bg-green-400' : 'bg-blue-500'}`}
         onPress={props.onPress}>

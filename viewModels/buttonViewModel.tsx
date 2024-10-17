@@ -1,8 +1,8 @@
 import { ButtonTitle } from '@/models/mainModel';
 import { action, makeAutoObservable } from 'mobx';
 import calculatorViewModel from './calculatorViewModel';
-import Toast from 'react-native-root-toast';
 import { evaluate } from 'mathjs';
+import { toast } from 'sonner-native';
 
 class ButtonViewModel {
   constructor() {
@@ -69,12 +69,8 @@ class ButtonViewModel {
 
     const result = evaluate(tmpInput);
 
-    if (result === 69 && result === 80085) {
-      Toast.show('Nice', {
-        position: Toast.positions.TOP,
-        duration: Toast.durations.SHORT,
-      });
-      return;
+    if (result === 69 || result === 80085) {
+      toast('Nice');
     }
 
     calculatorViewModel.setInput(result);

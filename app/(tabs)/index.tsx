@@ -53,10 +53,7 @@ export function HomeScreen() {
             <Button title="0" onPress={() => buttonViewModel.handleButtonPress('0')} />
           </View>
           <View>
-            <Button
-              title={<FontAwesome6 name="gear" size={25} />}
-              onPress={() => navigation.navigate('Management' as never)}
-            />
+            <Button title=" " />
             <Button title="9" onPress={() => buttonViewModel.handleButtonPress('9')} />
             <Button title="6" onPress={() => buttonViewModel.handleButtonPress('6')} />
             <Button title="3" onPress={() => buttonViewModel.handleButtonPress('3')} />
