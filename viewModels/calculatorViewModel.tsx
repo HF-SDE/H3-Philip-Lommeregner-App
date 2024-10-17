@@ -17,31 +17,37 @@ class CalculatorViewModel {
 
     @observable public calculators: Calculator[] = [{ uuid: this._firstUUID, input: "0" }]
 
-    @action public addInstans = (): void => {
+    @action
+    public addInstans = (): void => {
         this.calculators.push({ uuid: generate_UUIDv4(), input: "0" });
     }
 
-    @action public get selectedName(): string {
+    @action
+    public get selectedName(): string {
         const index = this.calculators.findIndex(env => (env.uuid === this.selectedUUID));
         return `Calculator ${index}`;
     };
 
-    @action public removeInstans = (uuid: string): void => {
+    @action
+    public removeInstans = (uuid: string): void => {
         const selectedElement = this.calculators.find((element) => element.uuid === uuid)
         if (selectedElement) {
             this.calculators.splice(this.calculators.indexOf(selectedElement), 1);
         }
     }
 
-    @action public setSelectedTo = (item: Calculator, index: number): void => {
+    @action
+    public setSelectedTo = (item: Calculator, index: number): void => {
         this.selectedTo = { ...item, name: `Calculator ${index}` };;
     }
 
-    @action public setSelectedFrom = (item: Calculator, index: number): void => {
+    @action
+    public setSelectedFrom = (item: Calculator, index: number): void => {
         this.selectedFrom = { ...item, name: `Calculator ${index}` };
     }
 
-    @action public move = (): void => {
+    @action
+    public move = (): void => {
         const toInstantsIndex = this.calculators.findIndex(element => element.uuid === this.selectedTo?.uuid);
         const toInstants = this.calculators.at(toInstantsIndex);
 
@@ -57,11 +63,13 @@ class CalculatorViewModel {
 
     }
 
-    @action public setSelected = (uuid: string): void => {
+    @action
+    public setSelected = (uuid: string): void => {
         this.selectedUUID = uuid;
     }
 
-    @action public setInput = (val: string): void => {
+    @action
+    public setInput = (val: string): void => {
         this.calculators.find(env => (env.uuid === this.selectedUUID))!.input = val.toString();
     }
 

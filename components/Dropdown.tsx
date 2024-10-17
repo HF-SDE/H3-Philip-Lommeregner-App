@@ -12,34 +12,6 @@ interface Props<T extends { uuid: string }> {
     onPressItem: (item: T, index: number) => void;
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        backgroundColor: '#fff',
-        padding: 20,
-        margin: 10,
-    },
-    top: {
-        flex: 0.3,
-        backgroundColor: 'grey',
-        borderWidth: 5,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-    },
-    middle: {
-        flex: 0.3,
-        backgroundColor: 'beige',
-        borderWidth: 5,
-    },
-    bottom: {
-        flex: 0.3,
-        backgroundColor: 'pink',
-        borderWidth: 5,
-        borderBottomLeftRadius: 20,
-    }
-});
-
 export default function Dropdown<T extends { uuid: string }>(props: Props<T>) {
     const { colorScheme } = useColorScheme()
     const [visible, setVisible] = useState(false);
