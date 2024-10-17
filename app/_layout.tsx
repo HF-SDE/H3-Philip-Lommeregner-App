@@ -20,7 +20,7 @@ export default function RootLayout() {
   });
 
   const appState = useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const [, setAppStateVisible] = useState(appState.current);
 
   useEffect(() => {
     if (loaded) {
@@ -29,7 +29,7 @@ export default function RootLayout() {
   }, [loaded]);
 
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
       setAppStateVisible(nextAppState);
       if (nextAppState === 'active') {
         if (appState.current.match(/inactive|background/)) {
