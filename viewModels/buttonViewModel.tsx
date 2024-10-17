@@ -4,11 +4,27 @@ import calculatorViewModel from './calculatorViewModel';
 import { evaluate } from 'mathjs';
 import { toast } from 'sonner-native';
 
+/**
+ * View model for Button
+ *
+ * @class ButtonViewModel
+ * @typedef {ButtonViewModel}
+ */
 class ButtonViewModel {
+  /**
+   * Creates an instance of ButtonViewModel.
+   *
+   * @constructor
+   */
   constructor() {
     makeAutoObservable(this);
   }
 
+  /**
+   * Handles the button press
+   *
+   * @param {ButtonTitle} input
+   */
   @action public handleButtonPress = (input: ButtonTitle): void => {
     if (input.match(/[0-9]/g)) {
       if (calculatorViewModel.input === '0') {
@@ -32,12 +48,18 @@ class ButtonViewModel {
     }
   };
 
+  /** 
+   * Erases the input
+   */
   @action public erase = (): void => {
     calculatorViewModel.calculators.find(
       (env) => env.uuid === calculatorViewModel.selectedUUID,
     )!.input = '0';
   };
 
+  /** 
+   * Semi undo the input 
+   */
   @action public undo = (): void => {
     const currentCalculator = calculatorViewModel.calculators.find(
       (env) => env.uuid === calculatorViewModel.selectedUUID,
@@ -50,6 +72,9 @@ class ButtonViewModel {
     }
   };
 
+  /** 
+   * Equal the input
+   */
   @action public equal = (): void => {
     let tmpInput: string = calculatorViewModel.input
       .replaceAll('÷', '/')
@@ -77,5 +102,10 @@ class ButtonViewModel {
   };
 }
 
+/**
+ * Used to export the button view model
+ *
+ * @type {ButtonViewModel}
+ */
 const buttonViewModel = new ButtonViewModel();
 export default buttonViewModel;

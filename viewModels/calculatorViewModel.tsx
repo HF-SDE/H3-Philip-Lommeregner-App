@@ -142,7 +142,7 @@ class CalculatorViewModel {
   };
 
   /**
-   * Description placeholder
+   * Get the input of the selected calculator
    *
    * @public
    * @readonly
@@ -155,7 +155,7 @@ class CalculatorViewModel {
 }
 
 /**
- * Description placeholder
+ * Used to export the view model
  *
  * @type {CalculatorViewModel}
  */

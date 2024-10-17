@@ -1,10 +1,9 @@
 import { Calculator } from '@/models/mainModel';
-import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { RectButton, Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
 import { styled } from 'nativewind';
 import calculatorViewModel from '@/viewModels/calculatorViewModel';
-import { LegacyRef } from 'react';
 
 interface Props {
   id: number;
