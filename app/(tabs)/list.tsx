@@ -17,11 +17,12 @@ export function ListOfCalculators() {
                         uuid={item.uuid}
                         input={item.input}
                         onPress={() => calculatorViewModel.setSelected(item.uuid)}
-                        delete={() => calculatorViewModel.removeInstans(item.uuid)}
+                        delete={() => calculatorViewModel.removeInstants(item.uuid)}
+                        move={calculatorViewModel.move}
                     />}
                 keyExtractor={item => item.uuid} />
             <View className="h-fit items-end justify-end">
-                <Button title="Add" onPress={calculatorViewModel.addInstans} />
+                <Button title="Add" onPress={calculatorViewModel.addInstants} />
             </View>
         </View>
     )

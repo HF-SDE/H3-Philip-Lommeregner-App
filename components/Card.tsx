@@ -7,6 +7,7 @@ interface Props {
     activeUUID: string;
     onPress: () => void;
     delete: () => void;
+    move: () => void;
 }
 
 export default function Card(props: Calculator & Props) {
@@ -20,7 +21,7 @@ export default function Card(props: Calculator & Props) {
                 <TouchableOpacity className="flex" onPress={props.delete}>
                     <MaterialIcons name="delete" size={27} color="red" />
                 </TouchableOpacity>
-                <TouchableOpacity className="flex" onPress={props.delete}>
+                <TouchableOpacity className="flex" onPress={props.move}>
                     <MaterialIcons name="drive-file-move" size={27} color="black" />
                 </TouchableOpacity>
             </View>

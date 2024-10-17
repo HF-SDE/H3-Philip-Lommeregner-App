@@ -18,7 +18,7 @@ class CalculatorViewModel {
     @observable public calculators: Calculator[] = [{ uuid: this._firstUUID, input: "0" }]
 
     @action
-    public addInstans = (): void => {
+    public addInstants = (): void => {
         this.calculators.push({ uuid: generate_UUIDv4(), input: "0" });
     }
 
@@ -29,7 +29,7 @@ class CalculatorViewModel {
     };
 
     @action
-    public removeInstans = (uuid: string): void => {
+    public removeInstants = (uuid: string): void => {
         const selectedElement = this.calculators.find((element) => element.uuid === uuid)
         if (selectedElement) {
             this.calculators.splice(this.calculators.indexOf(selectedElement), 1);
