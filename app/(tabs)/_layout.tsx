@@ -6,6 +6,7 @@ import { HomeScreen } from '.';
 import { observer } from 'mobx-react';
 import { ListOfCalculators } from './list';
 import { Management } from './management';
+import calculatorViewModel from '@/viewModels/calculatorViewModel';
 
 
 const Stack = createNativeStackNavigator();
@@ -18,7 +19,7 @@ export default function TabLayout() {
       <Stack.Screen
         name="Home"
         component={observer(HomeScreen)}
-        options={({ route }) => ({ title: route.name })}
+        options={{title: calculatorViewModel.selectedName, headerBackButtonMenuEnabled: true, headerTitleAlign: "center"}}
       />
       <Stack.Screen
         name="List"

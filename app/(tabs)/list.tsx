@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import mainViewModel from "@/viewModels/mainViewModel";
+import calculatorViewModel from "@/viewModels/calculatorViewModel";
 import { observer } from "mobx-react";
 import { FlatList, View } from "react-native";
 
@@ -8,20 +8,20 @@ export function ListOfCalculators() {
     return (
         <View className="h-full p-3 space-y-5">
             <FlatList
-                data={[...mainViewModel.calculators]}
-                extraData={mainViewModel.selectedUUID}
+                data={[...calculatorViewModel.calculators]}
+                extraData={calculatorViewModel.selectedUUID}
                 renderItem={({ item, index }) =>
                     <Card
                         id={index}
-                        activeUUID={mainViewModel.selectedUUID}
+                        activeUUID={calculatorViewModel.selectedUUID}
                         uuid={item.uuid}
                         input={item.input}
-                        onPress={() => mainViewModel.setSelected(item.uuid)}
-                        delete={() => mainViewModel.removeInstans(item.uuid)}
+                        onPress={() => calculatorViewModel.setSelected(item.uuid)}
+                        delete={() => calculatorViewModel.removeInstans(item.uuid)}
                     />}
                 keyExtractor={item => item.uuid} />
             <View className="h-fit items-end justify-end">
-                <Button title="Add" onPress={mainViewModel.addInstans} />
+                <Button title="Add" onPress={calculatorViewModel.addInstans} />
             </View>
         </View>
     )

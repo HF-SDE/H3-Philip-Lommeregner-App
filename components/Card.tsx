@@ -1,4 +1,4 @@
-import { Calculator } from "@/models/sampleModel";
+import { Calculator } from "@/models/mainModel";
 import { Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 

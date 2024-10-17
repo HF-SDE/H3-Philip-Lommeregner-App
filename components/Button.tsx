@@ -1,4 +1,4 @@
-import { ButtonTitle } from '@/models/sampleModel';
+import { ButtonTitle } from '@/models/mainModel';
 import React from 'react';
 import { Text, StyleSheet, GestureResponderEvent, TouchableOpacity } from 'react-native';
 
