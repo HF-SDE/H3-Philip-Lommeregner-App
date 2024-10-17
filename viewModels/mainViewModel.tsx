@@ -1,5 +1,5 @@
 import { ButtonTitle, Calculator } from "@/models/sampleModel";
-import { generate_uuidv4 } from "@/utils/uuid";
+import { generate_UUIDv4 } from "@/utils/uuid";
 import { evaluate, re } from "mathjs";
 import { action, computed, makeAutoObservable, observable } from "mobx";
 import Toast from "react-native-root-toast";
@@ -9,7 +9,7 @@ class MainViewModel {
         makeAutoObservable(this);
     }
 
-    private _firstUUID: string = generate_uuidv4();
+    private _firstUUID: string = generate_UUIDv4();
 
     @observable public selectedUUID: string = this._firstUUID;
 
@@ -20,7 +20,7 @@ class MainViewModel {
     @observable public calculators: Calculator[] = [{ uuid: this._firstUUID, input: "0" }]
 
     @action public addInstans = (): void => {
-        this.calculators.push({ uuid: generate_uuidv4(), input: "0" });
+        this.calculators.push({ uuid: generate_UUIDv4(), input: "0" });
     }
 
     @action public removeInstans = (uuid: string): void => {

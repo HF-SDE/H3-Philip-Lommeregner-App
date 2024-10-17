@@ -1,4 +1,4 @@
-export function generate_uuidv4(): string {
+export function generate_UUIDv4(): string {
     var dt = new Date().getTime();
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
         function (c) {
